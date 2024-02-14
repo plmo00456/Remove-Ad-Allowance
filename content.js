@@ -1,34 +1,23 @@
 let adList = ['.fc-ab-root', '.fc-whitelist-root'];
-let mutationFlag = false;
 
 window.onload = function() {
   const mo = new MutationObserver(onMutation);
 
   observe();
 
-  function onMutation(mutationsList, observer) {
-    if (!mutationFlag) {
-      mutationFlag = true;
-      window.requestAnimationFrame(() => {
-        mutationFlag = false;
-        processMutations(mutationsList);
-      });
-    }
-  }
+  function onMutation() {
+    const htmlElement = document.querySelector('html');
+    const bodyElement = document.querySelector('body');
 
-  function processMutations(mutationsList) {
-    let htmlElement = document.querySelector('html');
-    let bodyElement = document.querySelector('body');
-    for (let mutation of mutationsList) {
-      for (let adSelector of adList) {
-        let ads = mutation.target.querySelectorAll(adSelector);
-        ads.forEach(ad => {
-          ad.remove();
-          htmlElement.style.overflow = 'unset';
-          bodyElement.style.overflow = 'unset';
-        });
+    adList.forEach(ele => {
+      const adEle = document.querySelector(ele);
+      if(adEle){
+        adEle.remove();
+        htmlElement.style.overflow = 'unset';
+        bodyElement.style.overflow = 'unset';
       }
-    }
+    })
+
   }
 
   function observe() {
@@ -37,4 +26,5 @@ window.onload = function() {
       childList: true,
     });
   }
+
 }
