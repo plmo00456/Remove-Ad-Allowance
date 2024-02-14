@@ -1,0 +1,13 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "manifest_version": 3,
+  "name": "Remove AD Allowance",
+  "description": "It deletes the pop-up that tells you to allow advertisements.",
+  "version": "1.00",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
